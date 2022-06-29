@@ -97,7 +97,6 @@ async function ajouterImage(evt) {
 
 <template>
   <div>
-    <!-- TODO: les classes mises à FormKit ne fct pas ! -->
     <FormKit
       type="form"
       v-model="offre"
@@ -118,11 +117,6 @@ async function ajouterImage(evt) {
         outerClass: '',
       }"
     >
-      <!-- <button
-        class="rounded-md shadow-sm focus-style p-2 bg-blue-300 justify-self-end"
-      >
-        submit replacé par option sur FormKit
-      </button> -->
       <input type="hidden" v-model="offre.id" />
       <div v-if="offre.image_name">
         <ImgS
