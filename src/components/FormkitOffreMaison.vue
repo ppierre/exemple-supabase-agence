@@ -103,8 +103,19 @@ async function ajouterImage(evt) {
       v-model="offre"
       :submit-label="offre.id ? 'Mettre à jour offre' : 'Créer nouvelle offre'"
       @submit="posteOffreMaison"
-      :classes="{
-        outer: '$reset grid grid-cols-1 gap-2',
+      :config="{
+        classes: {
+          form: '$reset grid grid-cols-1 gap-2',
+          label: 'text-gray-700',
+          input:
+            'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus-style',
+          actions: 'justify-self-end',
+        },
+      }"
+      :submit-attrs="{
+        inputClass: 'rounded-md shadow-sm focus-style p-2 bg-blue-300 ',
+        wrapperClass: '',
+        outerClass: '',
       }"
     >
       <!-- <button
@@ -139,7 +150,14 @@ async function ajouterImage(evt) {
       </div>
       <FormKit name="nom" label="Nom" />
       <FormKit type="number" name="prix" label="Prix" />
-      <FormKit type="checkbox" name="favori" label="Favori" />
+      <FormKit
+        type="checkbox"
+        name="favori"
+        label="Favori"
+        input-class="w-4"
+        inner-class="inline-block"
+        label-class="inline-block"
+      />
       <FormKit
         type="number"
         name="nbrLits"
