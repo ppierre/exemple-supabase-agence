@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "jsx": "preserve",
+        "baseUrl": ".",
+        "paths": {
+            "~/*": [
+                "./*"
+            ],
+            "@/*": [
+                "./*"
+            ],
+            "~~/*": [
+                "./*"
+            ],
+            "@@/*": [
+                "./*"
+            ]
+        },
+        "module": "esnext",
+        "moduleResolution": "Node",
+        "lib": [
+            "ES2015"
+        ],
+        "types": [
+            "vite/client"
+        ]
+    },
+    "exclude": [
+        "node_modules",
+        ".nuxt",
+        "dist"
+    ]
+}

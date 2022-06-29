@@ -1,0 +1,27 @@
+{
+  "name": "td-grp-b",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 5050",
+    "netlify-proxy": "npx netlify-cms-proxy-server"
+  },
+  "dependencies": {
+    "@formkit/vue": "^1.0.0-beta.8",
+    "@supabase/supabase-js": "^1.35.3",
+    "slug": "^5.3.0",
+    "vite-plugin-pages": "^0.24.2",
+    "vue": "^3.2.37",
+    "vue-router": "^4.0.16"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.2",
+    "@vitejs/plugin-vue": "^2.3.3",
+    "autoprefixer": "^10.4.7",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.1.4",
+    "vite": "^2.9.12",
+    "vite-plugin-vue-type-imports": "^0.2.0"
+  }
+}

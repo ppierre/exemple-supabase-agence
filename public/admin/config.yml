@@ -1,0 +1,37 @@
+backend:
+  name: github
+ # repo: ppierre/test-import-glob-json
+local_backend: true # https://www.netlifycms.org/docs/beta-features/#working-with-a-local-git-repository
+media_folder: "public/images-maisons" 
+public_folder: "/images-maisons" 
+
+collections:
+  - name: "Maisons" # ou "Accommodation" (shema.org)
+    label: "Liste des maisons" # Used in the UI
+    folder: "src/assets/maisons" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    identifier_field: nom
+    #slug: "{{slug}}"
+    extension : "json"
+    fields: # The fields for each document, usually in front matter
+      #- {label: "ID", name: "id", widget: "uuid"} # utilise https://www.npmjs.com/package/netlify-cms-widget-uuid-v4
+      - {label: "Nom", name: "nom", widget: "string"} 
+      - {label: "Prix", name: "prix", widget: "number"} 
+      - {label: "Favori", name: "favori", widget: "boolean", default: false} 
+      - {label: "Image", name: "image", widget: "image"} 
+      - {label: "Nbr de lits", name: "nbrLits", widget: "number"} 
+      - {label: "Nbr de salle de bains", name: "nbrSDB", widget: "number"} 
+      - {label: "Surface", name: "surface", widget: "string"} 
+      - label: "Adresse"
+        name: "adresse"
+        widget: "object"
+        collapsed: true
+        summary: '{{fields.addressLocality}} {{fields.postalCode}} {{fields.streetAddress}}'
+        fields: 
+          - {label: "Country", name: "addressCountry", widget: "string"} 
+          - {label: "Locality", name: "addressLocality", widget: "string"} 
+          - {label: "Region", name: "addressRegion", widget: "string"} 
+          - {label: "Post office box", name: "postOfficeBoxNumber", widget: "string"} 
+          - {label: "Postal code", name: "postalCode", widget: "string"} 
+          - {label: "street address", name: "streetAddress", widget: "string"} 
+

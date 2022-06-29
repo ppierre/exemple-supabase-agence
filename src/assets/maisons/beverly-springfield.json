@@ -1,0 +1,17 @@
+{
+  "favori": true,
+  "prix": 3000,
+  "nom": "Beverly Springfield",
+  "image": "/images-maisons/pexels-binyamin-mellish-106399.jpg",
+  "nbrLits": 3,
+  "nbrSDB": 2,
+  "surface": "4x5m²",
+  "adresse": {
+    "addressCountry": "USA",
+    "addressRegion": "TX",
+    "addressLocality": "Palm Habor",
+    "postOfficeBoxNumber": "123",
+    "streetAddress": "Lake Sevilla",
+    "postalCode": "2821"
+  }
+}

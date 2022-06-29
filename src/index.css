@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .focus-style:focus {
+    @apply border-indigo-300 ring ring-indigo-200 ring-opacity-50;
+  }
+}
