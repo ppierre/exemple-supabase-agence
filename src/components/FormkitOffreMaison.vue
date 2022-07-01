@@ -3,7 +3,8 @@ import { reactive } from "vue";
 import { useRouter } from "vue-router";
 import { supabase } from "../supabase";
 import { PartialSchemaOffreMaison, SchemaOffreMaison } from "../types";
-import ImgS from "./ImgS.vue";
+import { createInput } from "@formkit/vue";
+import ImgUploadS from "./ImgUploadS.vue";
 const props = defineProps<{ offreMaison?: SchemaOffreMaison }>();
 const router = useRouter();
 
@@ -38,61 +39,7 @@ async function supprimerOffre() {
     router.push("/edit-maison/new");
   }
 }
-async function supprimeImage() {
-  const { data, error } = await supabase.storage
-    .from("prive-images-maisons")
-    .remove([offre.image_name]);
-  if (error) {
-    console.error(
-      "Impossible de supprimer l'image : ",
-      offre.image_name,
-      " raison : ",
-      error
-    );
-  } else {
-    offre.image_name = null;
-    if (!offre.id) return; // pas d'offre à mettre à jour
-    const { data, error } = await supabase
-      .from("OffreMaison")
-      .update({ image_name: null })
-      .match({ id: offre.id });
-    if (error) {
-      console.error(
-        "erreur lors de la suppression de l'image de l'offre :",
-        offre.id,
-        "erreur :",
-        error
-      );
-    }
-  }
-}
-async function ajouterImage(evt) {
-  const file = evt.target.children.fichier.files[0];
-  const { data, error } = await supabase.storage
-    .from("prive-images-maisons")
-    .upload(file.name, file, {
-      cacheControl: "3600",
-      upsert: false,
-    });
-  if (error) {
-    console.error("Impossible d'uploader :", error);
-  } else {
-    offre.image_name = file.name;
-    if (!offre.id) return; // pas d'offre à mettre à jour
-    const { data, error } = await supabase
-      .from("OffreMaison")
-      .update({ image_name: file.name })
-      .match({ id: offre.id });
-    if (error) {
-      console.error(
-        "erreur lors de la mise à jour de l'image de l'offre :",
-        offre.id,
-        "erreur :",
-        error
-      );
-    }
-  }
-}
+const imgUploadSupabase = createInput(ImgUploadS);
 </script>
 
 <template>
@@ -117,31 +64,8 @@ async function ajouterImage(evt) {
         outerClass: '',
       }"
     >
-      <input type="hidden" v-model="offre.id" />
-      <div v-if="offre.image_name">
-        <ImgS
-          class="rounded-t-lg w-full h-48 object-cover"
-          bucket="prive-images-maisons"
-          :name="offre.image_name"
-        />
-        <button
-          class="bg-red-500 rounded-lg p-2 mt-2 ml-auto block"
-          @click="supprimeImage()"
-        >
-          Supprimer l'image
-        </button>
-      </div>
-      <div v-else>
-        <form @submit.prevent="ajouterImage">
-          <input type="file" name="fichier" />
-          <button
-            type="submit"
-            class="bg-green-500 rounded-lg p-2 mt-2 ml-auto block"
-          >
-            Ajouter l'image
-          </button>
-        </form>
-      </div>
+      <FomKit type="hidden" name="id" />
+      <FormKit :type="imgUploadSupabase" name="image_name" />
       <FormKit name="nom" label="Nom" />
       <FormKit type="number" name="prix" label="Prix" />
       <FormKit
