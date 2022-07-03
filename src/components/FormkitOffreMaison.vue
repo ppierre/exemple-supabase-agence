@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { supabase } from "../supabase";
 import { PartialSchemaOffreMaison, SchemaOffreMaison } from "../types";
@@ -8,14 +8,14 @@ import ImgUploadS from "./ImgUploadS.vue";
 const props = defineProps<{ offreMaison?: SchemaOffreMaison }>();
 const router = useRouter();
 
-const offre = reactive<PartialSchemaOffreMaison>(
+const offre = ref<PartialSchemaOffreMaison>(
   props.offreMaison ?? { adresse: {} }
 );
 
 async function posteOffreMaison() {
   const { data, error } = await supabase
     .from<PartialSchemaOffreMaison>("OffreMaison")
-    .upsert(offre);
+    .upsert(offre.value);
   if (error) {
     console.error(
       "Impossible de mettre à jour l'offre : ",
@@ -32,7 +32,7 @@ async function supprimerOffre() {
   const { data, error } = await supabase
     .from<SchemaOffreMaison>("OffreMaison")
     .delete()
-    .match({ id: offre.id });
+    .match({ id: offre.value.id });
   if (error) {
     console.error("Erreur à la suppression de ", offre, "erreur :", error);
   } else {
@@ -45,6 +45,7 @@ const imgUploadSupabase = createInput(ImgUploadS);
 <template>
   <div>
     <FormKit
+      id="form"
       type="form"
       v-model="offre"
       :submit-label="offre.id ? 'Mettre à jour offre' : 'Créer nouvelle offre'"
@@ -97,6 +98,13 @@ const imgUploadSupabase = createInput(ImgUploadS);
 
       <button
         type="button"
+        @click="$formkit.reset('form')"
+        class="rounded-md shadow-sm focus-style p-2 bg-green-300 justify-self-end"
+      >
+        Reset
+      </button>
+      <button
+        type="button"
         v-if="offre.id"
         @click="($refs.dialogSupprimer as any).showModal()"
         class="rounded-md shadow-sm focus-style p-2 bg-red-500 justify-self-end"
@@ -108,10 +116,12 @@ const imgUploadSupabase = createInput(ImgUploadS);
         @click="($event.currentTarget as any).close()"
       >
         <button
+          type="button"
           class="rounded-md shadow-sm focus-style p-2 bg-blue-300 justify-self-end"
         >
           Annuler</button
         ><button
+          type="button"
           @click="supprimerOffre()"
           class="rounded-md shadow-sm focus-style p-2 bg-red-500"
         >
