@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import FormkitOffreMaison from "../../components/FormkitOffreMaison.vue";
+import FormKitOffreMaison from "../../components/FormKitOffreMaison.vue";
 </script>
 
 <template>
-  <FormkitOffreMaison />
+  <FormKitOffreMaison />
 </template>

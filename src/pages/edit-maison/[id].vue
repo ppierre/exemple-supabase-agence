@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { supabase } from "../../supabase";
 import { SchemaOffreMaison } from "../../types";
-import FormkitOffreMaison from "../../components/FormkitOffreMaison.vue";
+import FormKitOffreMaison from "../../components/FormKitOffreMaison.vue";
 const props = defineProps<{ id: string }>();
 const { data, error } = await supabase
   .from<SchemaOffreMaison>("OffreMaison")
@@ -11,5 +11,5 @@ const { data, error } = await supabase
 </script>
 
 <template>
-  <FormkitOffreMaison :offreMaison="data" />
+  <FormKitOffreMaison :offreMaison="data" />
 </template>
