@@ -65,7 +65,7 @@ const imgUploadSupabase = createInput(ImgUploadS);
         outerClass: '',
       }"
     >
-      <FomKit type="hidden" name="id" />
+      <FormKit type="hidden" name="id" />
       <FormKit :type="imgUploadSupabase" name="image_name" />
       <FormKit name="nom" label="Nom" />
       <FormKit type="number" name="prix" label="Prix" />
