@@ -3,7 +3,8 @@
     <ImgS
       v-if="image_name"
       class="rounded-t-lg w-full h-48 object-cover"
-      bucket="prive-images-maisons"
+      bucket="images-maisons"
+      public
       :name="image_name"
     />
     <img
